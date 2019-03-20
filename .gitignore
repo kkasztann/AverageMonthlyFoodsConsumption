@@ -1,0 +1,7 @@
+# CSS Files
+style.css
+style.css.map
+
+# System Files
+.DS_Store
+Thumbs.db
