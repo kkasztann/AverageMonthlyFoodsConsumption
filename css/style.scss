@@ -1,18 +1,35 @@
 body {
-    background-color: #123;
+    background-color: #050303;
+    background-image: url("/img/backgroundWall.png");
     color: #FFF;
 }
 
 .map {
-    background-color: red;
+    svg {
+        height: 50vh;
+        width: 100%;
+    }
+
+    .land {
+        fill: #CCCCCC;
+        fill-opacity: 1;
+        stroke: white;
+        stroke-opacity: 1;
+        stroke-width: 0.5;
+
+        &:hover {
+            fill: rgb(255, 255, 255);
+        }
+    }
 }
 
+
 .data {
-    background-color:green;
+    background-color: green;
 }
 
 .diagrams {
-    background-color:blue;
+    background-color: blue;
 }
 
 footer {
