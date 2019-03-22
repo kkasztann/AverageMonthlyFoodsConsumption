@@ -5,26 +5,51 @@ $optionalColor: #10AF45;
 $mapColor: #808080;
 $backgroundColor: #050303;
 
-body {
-    background-color: $backgroundColor;
-    background-image: url("/img/backgroundWall.png");
-    color: #FFF;
+h1,
+h2,
+h3 {
+    text-align: center;
 }
 
 h1 {
     color: $primaryColor;
-    text-align: center;
     font-size: 2.5em;
 }
 
 h2 {
     color: $secondaryColor;
-    text-align: center;
     font-size: 2.0em;
+}
+
+h3 {
+    color: $primaryColor;
+    font-size: 1.8em;
 }
 
 ul {
     list-style-position: inside;
+}
+
+a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.quote {
+    &:before {
+        content: '\201C';
+    }
+
+    &:after {
+        content: '\201D';
+    }
+}
+
+
+body {
+    background-color: $backgroundColor;
+    background-image: url("/img/backgroundWall.png");
+    color: #FFF;
 }
 
 
@@ -37,7 +62,7 @@ ul {
     .land {
         fill: $mapColor;
         fill-opacity: 1;
-        stroke: white;
+        stroke: #FFF;
         stroke-opacity: 1;
         stroke-width: 0.5;
 
@@ -52,6 +77,10 @@ ul {
     section {
         text-align: center;
     }
+
+    .voivodeship {
+        color: $optionalColor;
+    }
 }
 
 
@@ -63,6 +92,56 @@ ul {
 
 
 footer {
+    background-color: rgba($color: #000, $alpha: 0.6);
     border-top: solid $primaryColor;
     border-bottom: solid $primaryColor;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    .aboutMe {
+        & blockquote {
+            position: relative;
+            padding-left: 1em;
+            border-left: 0.2em solid $primaryColor;
+            font-size: 1.25em;
+            line-height: 150%;
+
+            &:before,
+            &:after {
+                content: '\201C';
+                color: $secondaryColor;
+            }
+
+            &:after {
+                content: '\201D';
+            }
+        }
+    }
+
+    & .socialMedia {
+        align-self: center;
+
+        & i {
+            font-size: 2.5em;
+            margin: 0 0.2em;
+        }
+
+        & .fb:hover {
+            color: #3C5A99;
+        }
+
+        & .yt:hover {
+            color: #FF0000;
+        }
+
+        & .ig:hover {
+            color: #E1306C;
+        }
+
+        & .gh:hover {
+            color: #333;
+        }
+
+    }
 }
