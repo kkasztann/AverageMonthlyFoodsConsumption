@@ -70,6 +70,10 @@ body {
             fill: $optionalColor;
         }
     }
+
+    .landTagged {
+        fill: darken($optionalColor, 10%);
+    }
 }
 
 
