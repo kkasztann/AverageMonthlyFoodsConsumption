@@ -1,10 +1,9 @@
 // ======================== MAIN CLASS =====================
 class Main {
-  constructor(products = [], voivodeships = [], activeVoivodeship = {}) {
+  constructor(products = [], voivodeships = [], activeVoivodeshipID = {}) {
     this.products = products;
     this.voivodeships = voivodeships;
-    this.activeVoivodeship = activeVoivodeship;
-
+    this.activeVoivodeshipID = activeVoivodeshipID;
     this.map = document.querySelectorAll("path");
   }
 
@@ -31,21 +30,6 @@ class Main {
   };
 
 
-  setVoivodeshipsOnClick() {
-    this.map.forEach(voivodeship => {
-      voivodeship.addEventListener("click", (e) => {
-        this.map.forEach(voivodeship => {
-          voivodeship.classList.remove("landTagged");
-        });
-        e.target.classList.add("landTagged");
-        document.querySelector(".voivodeship").textContent = this.voivodeships.get(e.target.id).name;
-        this.activeVoivodeship = this.voivodeships.get(e.target.id).unitID;
-      })
-    })
-
-  };
-
-
   setVoivodeshipsUnit() {
     axios.get('https://cors-anywhere.herokuapp.com/https://bdl.stat.gov.pl/api/v1/units?level=2&format=json&page-size=20', {
       headers: {
@@ -53,7 +37,6 @@ class Main {
       }
     }).then((response) => {
       if (response.data.totalRecords === 16) {
-        console.log("16 rekordów");
         this.voivodeships.forEach(voivodeship => {
           response.data.results.forEach(data => {
             if (data.name.toLowerCase() === voivodeship.name) {
@@ -67,20 +50,100 @@ class Main {
     }).catch(function (error) {
       console.log(error);
     })
+  };
+
+
+  setProducts() {
+    axios.get('https://cors-anywhere.herokuapp.com/https://bdl.stat.gov.pl/api/v1/variables?subject-id=P2456&format=json&page-size=8', {
+      headers: {
+        'X-ClientId': '785f193c-9495-41ae-9e16-08d6b36cba0f'
+      }
+    }).then((response) => {
+      if (response.data.totalRecords != 0) {
+        response.data.results.forEach(product => {
+          const newProduct = new Product(product.n1, product.id, product.measureUnitName);
+          this.products.push(newProduct);
+        })
+      } else {
+        console.log("No data");
+      }
+      this.showProductsInUL();
+    }).catch(function (error) {
+      console.log(error);
+    })
+  };
+
+
+  setProductsValue() {
+    this.products.forEach(product => {
+      axios.get(`https://cors-anywhere.herokuapp.com/https://bdl.stat.gov.pl/api/v1/data/by-unit/${this.activeVoivodeshipID}?var-id=${product.id}&year=2017&format=json`, {
+        headers: {
+          'X-ClientId': '785f193c-9495-41ae-9e16-08d6b36cba0f'
+        }
+      }).then((response) => {
+        if (response.data.totalRecords == 1) {
+          product.value = response.data.results[0].values[0].val;
+        } else {
+          console.log("No data");
+          product.value = "BDL no data";
+        }
+        this.showProductsInUL();
+      }).catch(function (error) {
+        console.log(error);
+      })
+    })
   }
-}
+
+
+  showProductsInUL() {
+    const dataList = document.querySelector(".dataList");
+    dataList.innerHTML = "";
+    this.products.forEach(product => {
+      const li = document.createElement('li');
+      li.textContent = `${product.name}:${product.value} ${product.entity}`;
+      dataList.appendChild(li);
+    })
+  }
+
+
+  setVoivodeshipsOnClick() {
+    this.map.forEach(voivodeship => {
+      voivodeship.addEventListener("click", (e) => {
+        this.map.forEach(voivodeship => {
+          voivodeship.classList.remove("landTagged");
+        });
+        e.target.classList.add("landTagged");
+        document.querySelector(".voivodeship").textContent = this.voivodeships.get(e.target.id).name;
+        this.activeVoivodeshipID = this.voivodeships.get(e.target.id).unitID;
+        this.setProductsValue();
+      })
+    })
+  };
+
+};
+
 // ======================== VOIVODESHIP CLASS =====================
 class Voivodeship {
   constructor(name, unitID = "no Data") {
     this.name = name;
     this.unitID = unitID;
   }
-}
+};
 
+// ======================== PRODUCT CLASS =====================
+class Product {
+  constructor(name = "no Data", id = 0, entity = "kg", value = 0) {
+    this.name = name;
+    this.id = id;
+    this.entity = entity;
+    this.value = value;
+  }
+};
 
 
 // ======================== START HERE =====================
 main = new Main();
 main.setVoivodeships();
 main.setVoivodeshipsUnit();
+main.setProducts();
 main.setVoivodeshipsOnClick();
