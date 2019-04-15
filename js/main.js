@@ -99,9 +99,11 @@ class Main {
     const dataList = document.querySelector(".dataList");
     dataList.innerHTML = "";
     this.products.forEach(product => {
-      const li = document.createElement('li');
-      li.textContent = `${product.name}:${product.value} ${product.entity}`;
-      dataList.appendChild(li);
+      if (product.value != "BDL no data") {
+        const li = document.createElement('li');
+        li.textContent = `${product.name}:${product.value} ${product.entity}`;
+        dataList.appendChild(li);
+      }
     })
   }
 
