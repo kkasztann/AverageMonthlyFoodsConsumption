@@ -1,0 +1,147 @@
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+h1 {
+  color: #FFCE38;
+  font-size: 2.5em;
+}
+
+h2 {
+  color: #00CFFA;
+  font-size: 2.0em;
+}
+
+h3 {
+  color: #FFCE38;
+  font-size: 1.8em;
+}
+
+ul {
+  list-style-position: inside;
+}
+
+a {
+  text-decoration: none;
+  color: #FFF;
+}
+
+.quote:before {
+  content: '\201C';
+}
+
+.quote:after {
+  content: '\201D';
+}
+
+body {
+  background-color: #050303;
+  background-image: url("/img/backgroundWall.png");
+  color: #FFF;
+}
+
+.map svg {
+  height: 50vh;
+  width: 100%;
+}
+
+.map .land {
+  fill: #808080;
+  fill-opacity: 1;
+  stroke: #FFF;
+  stroke-opacity: 1;
+  stroke-width: 0.5;
+}
+
+.map .land:hover {
+  fill: #10AF45;
+}
+
+.map .landTagged {
+  fill: #0c8033;
+}
+
+.data section {
+  text-align: center;
+}
+
+.data .voivodeship {
+  color: #10AF45;
+}
+
+.diagrams {
+  width: 80vw;
+  min-width: 300px;
+  margin: 20px auto;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-top: solid #FFCE38;
+  border-bottom: solid #FFCE38;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+footer .aboutMe {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+footer .aboutMe img {
+  margin-top: 1em;
+}
+
+footer .aboutMe blockquote {
+  position: relative;
+  padding-left: 1em;
+  border-left: 0.2em solid #FFCE38;
+  font-size: 1.25em;
+  line-height: 150%;
+}
+
+footer .aboutMe blockquote:before, footer .aboutMe blockquote:after {
+  content: '\201C';
+  color: #00CFFA;
+}
+
+footer .aboutMe blockquote:after {
+  content: '\201D';
+}
+
+footer .socialMedia {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+footer .socialMedia i {
+  font-size: 2.5em;
+  margin: 0 0.2em;
+  margin-bottom: 0.5em;
+}
+
+footer .socialMedia .fb:hover {
+  color: #3C5A99;
+}
+
+footer .socialMedia .yt:hover {
+  color: #FF0000;
+}
+
+footer .socialMedia .ig:hover {
+  color: #E1306C;
+}
+
+footer .socialMedia .gh:hover {
+  color: #333;
+}
+/*# sourceMappingURL=style.css.map */
