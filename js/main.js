@@ -77,21 +77,25 @@ class Main {
   setProductsValue() {
     this.products.forEach(product => {
       axios.get(`https://cors-anywhere.herokuapp.com/https://bdl.stat.gov.pl/api/v1/data/by-unit/${this.activeVoivodeshipID}?var-id=${product.id}&year=2017&format=json`, {
-        headers: {
-          'X-ClientId': '785f193c-9495-41ae-9e16-08d6b36cba0f'
-        }
-      }).then((response) => {
-        if (response.data.totalRecords == 1) {
-          product.value = response.data.results[0].values[0].val;
-        } else {
-          console.log("No data");
-          product.value = "BDL no data";
-        }
-        this.showProductsInUL();
-      }).catch(function (error) {
-        console.log(error);
-      })
+          headers: {
+            'X-ClientId': '785f193c-9495-41ae-9e16-08d6b36cba0f'
+          }
+        }).then((response) => {
+          if (response.data.totalRecords == 1) {
+            product.value = response.data.results[0].values[0].val;
+          } else {
+            console.log("No data");
+            product.value = "BDL no data";
+          }
+          this.showProductsInUL();
+        }).then(() => {
+          this.generateChart(this.products);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
     })
+    this.generateChart(this.products);
   }
 
 
@@ -121,6 +125,55 @@ class Main {
       })
     })
   };
+
+
+  generateChart(products) {
+
+    var oldcanv = document.getElementById('chart');
+    document.querySelector(".diagrams").removeChild(oldcanv);
+
+    var canv = document.createElement('canvas');
+    canv.id = 'chart';
+    document.querySelector(".diagrams").appendChild(canv);
+
+
+    var ctx = document.getElementById('chart').getContext('2d');
+    let chartData = [];
+    let chartLabels = [];
+    products.forEach(product => {
+      if (product.value != "BDL no data") {
+        chartData.push(product.value);
+        chartLabels.push(product.name);
+      }
+    })
+    var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: '# of Votes',
+          data: chartData,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+    });
+  }
 
 };
 

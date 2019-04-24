@@ -90,10 +90,9 @@ body {
 
 .diagrams {
     width: 80vw;
-    height: 100%;
-    margin: 0 auto;
+    min-width: 300px;
+    margin: 20px auto;
 }
-
 
 footer {
     background-color: rgba($color: #000, $alpha: 0.6);
