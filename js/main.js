@@ -49,6 +49,7 @@ class Main {
       }
     }).catch(function (error) {
       console.log(error);
+      alert(`Coś poszło nie tak lub wyczerpano limit zapytań o dane`);
     })
   };
 
@@ -70,6 +71,7 @@ class Main {
       this.showProductsInUL();
     }).catch(function (error) {
       console.log(error);
+      alert(`Coś poszło nie tak lub wyczerpano limit zapytań o dane`);
     })
   };
 
@@ -93,6 +95,7 @@ class Main {
         })
         .catch(function (error) {
           console.log(error);
+          alert(`Coś poszło nie tak lub wyczerpano limit zapytań o dane`);
         })
     })
     this.generateChart(this.products);
