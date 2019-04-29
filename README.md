@@ -2,6 +2,8 @@
 
 > ### [Website Live](https://kkasztann.github.io/AverageMonthlyFoodsConsumption/) <===
 
+![HowItWork](howItWork.gif)
+
 ### Project description:
 Average monthly selected food products consumption in Poland voivodeships.
 
